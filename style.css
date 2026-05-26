@@ -316,6 +316,7 @@ h3 {
 }
 
 .summary-grid,
+.dashboard-grid,
 .info-grid,
 .day-grid {
   display: grid;
@@ -324,6 +325,7 @@ h3 {
 }
 
 .summary-card,
+.dashboard-card,
 .info-card,
 .day-card,
 .logistics-card,
@@ -337,10 +339,41 @@ h3 {
 }
 
 .summary-card,
+.dashboard-card,
 .info-card,
 .logistics-card,
 .apa-card {
   padding: 18px;
+}
+
+.dashboard-section {
+  padding-bottom: 40px;
+}
+
+.dashboard-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.dashboard-card {
+  border-top: 4px solid var(--gold);
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.dashboard-card strong {
+  color: var(--navy);
+  font-size: 1.05rem;
+}
+
+.dashboard-card p {
+  margin: 0;
+  color: var(--gray-700);
+}
+
+.dashboard-card .source-link {
+  justify-self: start;
+  margin-top: 4px;
 }
 
 .summary-card {
@@ -428,6 +461,13 @@ h3 {
 .tag.backup {
   background: #f4e4e4;
   color: var(--danger);
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
 }
 
 .controls {
@@ -531,6 +571,35 @@ select {
   margin-top: 4px;
 }
 
+.day-glance {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.day-glance span {
+  min-width: 0;
+  border: 1px solid var(--gray-100);
+  border-radius: 7px;
+  background: var(--gray-50);
+  color: var(--gray-700);
+  padding: 9px 10px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.day-glance strong {
+  display: block;
+  color: var(--navy);
+  font-size: 0.78rem;
+  margin-bottom: 2px;
+}
+
 .expand-icon {
   color: var(--navy);
   font-weight: 900;
@@ -604,13 +673,20 @@ select {
   font-weight: 900;
 }
 
-.route-item p {
-  margin: 4px 0;
-  color: var(--gray-800);
+.route-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
 }
 
-.route-item small {
-  color: var(--gray-500);
+.route-meta-row span {
+  border-radius: 999px;
+  background: var(--gray-100);
+  color: var(--gray-700);
+  padding: 4px 9px;
+  font-size: 0.84rem;
+  font-weight: 800;
 }
 
 .apa-layout {
@@ -687,6 +763,36 @@ select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.card-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--gold);
+  font-size: 0.86rem;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.attraction-card.hidden {
+  display: none;
+}
+
+.attraction-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 10px 0;
+}
+
+.attraction-facts span {
+  border-radius: 999px;
+  background: var(--gray-100);
+  color: var(--navy-2);
+  padding: 4px 9px;
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
 .ticket-note {
@@ -1067,6 +1173,10 @@ select {
   pointer-events: auto;
 }
 
+.mobile-dock {
+  display: none;
+}
+
 .footer {
   background: var(--navy);
   color: rgba(255, 255, 255, 0.82);
@@ -1119,6 +1229,7 @@ select {
   }
 
   .summary-grid,
+  .dashboard-grid,
   .quick-link-grid,
   .info-grid,
   .day-grid,
@@ -1135,6 +1246,10 @@ select {
 
   .mode-switch {
     justify-content: flex-start;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -1160,6 +1275,15 @@ select {
   .button,
   .mode-button {
     width: 100%;
+  }
+
+  body {
+    padding-bottom: 72px;
+  }
+
+  .dashboard-grid,
+  .day-glance {
+    grid-template-columns: 1fr;
   }
 
   .attraction-links {
@@ -1212,5 +1336,39 @@ select {
 
   .nav-links.open {
     grid-template-columns: 1fr;
+  }
+
+  .mobile-dock {
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    z-index: 19;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 4px;
+    padding: 7px;
+    border: 1px solid rgba(15, 39, 66, 0.14);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 16px 40px rgba(15, 39, 66, 0.18);
+  }
+
+  .mobile-dock a {
+    border-radius: 8px;
+    padding: 8px 4px;
+    color: var(--navy);
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-align: center;
+  }
+
+  .mobile-dock a:focus,
+  .mobile-dock a:hover {
+    background: var(--gray-100);
+  }
+
+  .back-to-top {
+    bottom: 86px;
   }
 }

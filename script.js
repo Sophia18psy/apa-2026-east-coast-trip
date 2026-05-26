@@ -1127,9 +1127,11 @@ const tagClassMap = {
 
 let activeMode = "all";
 let activePhotoGuideGroup = "全部";
+let activeAttractionCity = "全部";
 
 document.addEventListener("DOMContentLoaded", () => {
   redirectLegacyPhotoHash();
+  renderHomeDashboard();
   renderSummaryCards();
   renderFilters();
   renderTimeline();
@@ -1145,6 +1147,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderLodging();
   renderChecklist();
   renderRisks();
+  renderMobileDock();
   bindControls();
   bindNavigation();
   bindBackToTop();
@@ -1175,6 +1178,24 @@ function el(tag, className, text) {
 
 function tagMarkup(tags) {
   return tags.map((tag) => `<span class="tag ${tagClassMap[tag] || ""}">${tag}</span>`).join("");
+}
+
+function renderHomeDashboard() {
+  const dashboard = document.getElementById("homeDashboard");
+  if (!dashboard) return;
+  const dashboardItems = [
+    { title: "8/2 抵達 JFK", text: "第一晚以 TWA Hotel 或 JFK 周邊接駁飯店為優先，降低深夜進城與行李轉乘負擔。", href: "itinerary.html?date=2026-08-02#daily", label: "查看 8/2" },
+    { title: "8/3 前往 DC", text: "AirTrain、LIRR 銜接 Moynihan Train Hall，再搭 Amtrak 前往 Washington Union Station。", href: "itinerary.html?date=2026-08-03#daily", label: "查看 8/3" },
+    { title: "8/6 與 8/8 海報", text: "兩場海報皆在 Hall D, Solutions Center, Posters；8/8 結束後預留緩衝再前往紐約。", href: "apa.html", label: "查看 APA" },
+    { title: "8/13 前往 JFK", text: "晚間以 Uber/Lyft 或預約機場接送為主，行李多與凌晨航班不建議多段轉乘。", href: "itinerary.html?date=2026-08-13#daily", label: "查看 8/13" }
+  ];
+  dashboard.innerHTML = dashboardItems.map((item) => `
+    <article class="dashboard-card">
+      <strong>${item.title}</strong>
+      <p>${item.text}</p>
+      <a class="source-link" href="${item.href}">${item.label}</a>
+    </article>
+  `).join("");
 }
 
 function renderSummaryCards() {
@@ -1231,6 +1252,11 @@ function renderDays() {
           </span>
           <span class="expand-icon">${index === 0 ? "-" : "+"}</span>
         </div>
+        <div class="day-glance" aria-label="當日摘要">
+          <span><strong>上午</strong>${day.morning}</span>
+          <span><strong>下午</strong>${day.afternoon}</span>
+          <span><strong>交通</strong>${dailyRoutePlans[day.id]?.[0]?.method || day.transport}</span>
+        </div>
         <div class="tag-row">${tagMarkup(day.tags)}</div>
       </button>
       <div class="day-detail">
@@ -1266,8 +1292,10 @@ function renderDailyRoutes(dayId) {
           <article class="route-item">
             <div>
               <span class="route-path">${route.from} → ${route.to}</span>
-              <p>${route.method}</p>
-              <small>${route.buffer}</small>
+              <div class="route-meta-row">
+                <span>${route.method}</span>
+                <span>緩衝：${route.buffer}</span>
+              </div>
             </div>
             <a class="source-link map-link" href="${route.mapUrl}" target="_blank" rel="noopener">路線地圖</a>
           </article>
@@ -1397,16 +1425,22 @@ function renderUniversities() {
 function renderAttractions() {
   const grid = document.getElementById("attractionGrid");
   if (!grid) return;
+  renderAttractionFilters(grid);
   grid.innerHTML = attractions.map((item) => `
-    <article class="info-card">
-      <h3>${item.city}｜${item.name}</h3>
+    <article class="info-card attraction-card" data-city="${item.city}">
+      <div class="card-topline">
+        <span>${item.city}</span>
+        <span>${item.date}</span>
+      </div>
+      <h3>${item.name}</h3>
+      <div class="attraction-facts">
+        <span>${item.duration}</span>
+        <span>${item.transport}</span>
+        <span>同行便利：${item.family}</span>
+      </div>
       <p><strong>參訪理由：</strong>${item.reason}</p>
-      <p><strong>建議停留：</strong>${item.duration}</p>
-      <p><strong>交通方式：</strong>${item.transport}</p>
-      <p><strong>適合日期：</strong>${item.date}</p>
-      <p><strong>同行便利：</strong>${item.family}</p>
-      <p><strong>低負擔版本：</strong>${item.low}</p>
-      <p><strong>加強版本：</strong>${item.plus}</p>
+      <p><strong>精簡安排：</strong>${item.low}</p>
+      <p><strong>延伸安排：</strong>${item.plus}</p>
       <div class="attraction-links" aria-label="${item.name} 官方資訊">
         <a class="source-link map-link" href="${item.mapUrl}" target="_blank" rel="noopener">路線地圖</a>
         <a class="source-link" href="${item.officialUrl}" target="_blank" rel="noopener">官方首頁</a>
@@ -1414,6 +1448,25 @@ function renderAttractions() {
       </div>
       ${item.ticketNote ? `<p class="ticket-note"><strong>票券提醒：</strong>${item.ticketNote}</p>` : ""}
     </article>
+  `).join("");
+  applyAttractionFilter();
+}
+
+function renderAttractionFilters(grid) {
+  const section = grid.closest(".section");
+  if (!section) return;
+  let filter = document.getElementById("attractionCityFilter");
+  if (!filter) {
+    filter = document.createElement("div");
+    filter.id = "attractionCityFilter";
+    filter.className = "filter-bar";
+    filter.setAttribute("role", "group");
+    filter.setAttribute("aria-label", "參訪地點城市篩選");
+    section.insertBefore(filter, grid);
+  }
+  const cities = ["全部", ...new Set(attractions.map((item) => item.city))];
+  filter.innerHTML = cities.map((city) => `
+    <button class="filter-chip ${city === activeAttractionCity ? "active" : ""}" type="button" data-attraction-city="${city}">${city}</button>
   `).join("");
 }
 
@@ -1645,6 +1698,7 @@ function bindControls() {
   }
 
   bindPhotoGuideControls();
+  bindAttractionFilters();
 }
 
 function bindPhotoGuideControls() {
@@ -1663,6 +1717,19 @@ function bindPhotoGuideControls() {
   });
 }
 
+function bindAttractionFilters() {
+  const filter = document.getElementById("attractionCityFilter");
+  if (!filter) return;
+  filter.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-attraction-city]");
+    if (!button) return;
+    activeAttractionCity = button.dataset.attractionCity;
+    filter.querySelectorAll(".filter-chip").forEach((item) => item.classList.remove("active"));
+    button.classList.add("active");
+    applyAttractionFilter();
+  });
+}
+
 function applyFilters() {
   const selectedDate = document.getElementById("dateFilter")?.value || "全部";
   const selectedCategory = document.getElementById("categoryFilter")?.value || "全部";
@@ -1672,6 +1739,12 @@ function applyFilters() {
     const matchesCategory = selectedCategory === "全部" || card.dataset.categories.split("|").includes(selectedCategory);
     const matchesMode = activeMode === "all" || card.dataset.priority === activeMode;
     card.classList.toggle("hidden", !(matchesDate && matchesCategory && matchesMode));
+  });
+}
+
+function applyAttractionFilter() {
+  document.querySelectorAll(".attraction-card").forEach((card) => {
+    card.classList.toggle("hidden", !(activeAttractionCity === "全部" || card.dataset.city === activeAttractionCity));
   });
 }
 
@@ -1726,4 +1799,19 @@ function bindBackToTop() {
   button.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
+}
+
+function renderMobileDock() {
+  if (document.querySelector(".mobile-dock")) return;
+  const dock = document.createElement("nav");
+  dock.className = "mobile-dock";
+  dock.setAttribute("aria-label", "手機快捷導覽");
+  dock.innerHTML = `
+    <a href="index.html">首頁</a>
+    <a href="itinerary.html#daily">今日</a>
+    <a href="attractions.html#photo-guide">地點</a>
+    <a href="logistics.html">交通</a>
+    <a href="prep.html">準備</a>
+  `;
+  document.body.appendChild(dock);
 }
