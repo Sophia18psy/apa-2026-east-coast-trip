@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>APA 2026 美國研討會暨東岸親子旅遊互動規劃</title>
+  <meta name="description" content="APA 2026 美國心理學會研討會、海報發表與東岸親子旅遊互動行程工具。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="主要導覽">
+      <a class="brand" href="index.html#top">APA 2026 East Coast</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navLinks">選單</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">首頁</a>
+        <a href="itinerary.html">每日行程</a>
+        <a href="apa.html">APA</a>
+        <a href="attractions.html">景點照片</a>
+        <a href="logistics.html">交通住宿</a>
+        <a href="prep.html">行前準備</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">出國行程互動查詢工具</p>
+        <h1>APA 2026 美國研討會暨東岸親子旅遊互動規劃</h1>
+        <p class="hero-subtitle">8/2-8/15 | 紐約・華盛頓特區 | APA 研討會 + 海報發表 + 親子旅遊</p>
+        <div class="hero-actions" aria-label="快速操作">
+          <a class="button primary" href="itinerary.html">查看每日行程</a>
+          <a class="button secondary" href="attractions.html#photo-guide">打開景點照片</a>
+        </div>
+      </div>
+      <div class="hero-panel" aria-label="本次行程摘要">
+        <div class="hero-meta">
+          <span>行程定位</span>
+          <strong>APA 研討會、海報發表、東岸城市旅遊與大學參訪</strong>
+        </div>
+        <div class="hero-meta">
+          <span>核心任務</span>
+          <strong>APA 2026 + 兩篇海報發表</strong>
+        </div>
+        <div class="hero-meta">
+          <span>城市路線</span>
+          <strong>JFK - DC - NYC - JFK</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section summary-section" aria-labelledby="summaryTitle">
+      <div class="section-heading">
+        <p class="eyebrow">行程重點</p>
+        <h2 id="summaryTitle">六個主要任務</h2>
+        <p>首頁保留旅程摘要與快速入口；詳細內容分頁呈現，旅行時查詢比較不會被長頁面拖慢。</p>
+      </div>
+      <div class="summary-grid" id="summaryGrid"></div>
+    </section>
+
+    <section class="section" aria-labelledby="quickTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Quick Access</p>
+        <h2 id="quickTitle">快速進入各功能頁</h2>
+      </div>
+      <div class="quick-link-grid">
+        <a class="quick-link-card" href="itinerary.html">
+          <span>01</span>
+          <strong>每日行程</strong>
+          <p>日期篩選、APA/旅遊模式、每日提醒與可展開行程卡片。</p>
+        </a>
+        <a class="quick-link-card" href="apa.html">
+          <span>02</span>
+          <strong>APA 與海報</strong>
+          <p>會議節點、兩篇海報發表、議程媒合與待確認提醒。</p>
+        </a>
+        <a class="quick-link-card" href="attractions.html">
+          <span>03</span>
+          <strong>景點照片</strong>
+          <p>DC、紐約與大學參訪的核心照片導覽；費城保留為可選延伸。</p>
+        </a>
+        <a class="quick-link-card" href="logistics.html">
+          <span>04</span>
+          <strong>交通住宿</strong>
+          <p>跨城市移動、住宿區域、行李與替代方案。</p>
+        </a>
+        <a class="quick-link-card" href="prep.html">
+          <span>05</span>
+          <strong>行前與風險</strong>
+          <p>Checklist、localStorage 勾選保存與風險控管 accordion。</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="overview" aria-labelledby="overviewTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Timeline</p>
+        <h2 id="overviewTitle">行程總覽</h2>
+        <p>點選日期會前往每日行程頁，並自動篩選到該日。</p>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <section class="section" aria-labelledby="todayTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Reminder</p>
+        <h2 id="todayTitle">預設重點提醒</h2>
+      </div>
+      <div class="reminder-card" id="todayReminder" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="返回頂部">Top</button>
+
+  <footer class="footer">
+    <p>本網站為 APA 2026 研討會與東岸親子旅遊規劃工具。請勿放入護照號碼、信用卡、完整住宿訂單或其他敏感個資。</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

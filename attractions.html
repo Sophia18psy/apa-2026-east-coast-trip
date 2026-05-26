@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>景點照片導覽｜APA 2026 East Coast</title>
+  <meta name="description" content="APA 2026 東岸行程核心景點照片導覽、旅遊建議與大學參訪。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="主要導覽">
+      <a class="brand" href="index.html#top">APA 2026 East Coast</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navLinks">選單</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">首頁</a>
+        <a href="itinerary.html">每日行程</a>
+        <a href="apa.html">APA</a>
+        <a href="attractions.html">景點照片</a>
+        <a href="logistics.html">交通住宿</a>
+        <a href="prep.html">行前準備</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="section page-intro" aria-labelledby="photoGuideTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Photo Guide</p>
+        <h1 id="photoGuideTitle">景點照片導覽</h1>
+        <p>以核心景點為第一批素材，主線涵蓋華盛頓特區、紐約與大學參訪；費城照片保留為可選一日延伸。所有照片皆下載到本機，方便離線開啟。</p>
+      </div>
+    </section>
+
+    <section class="section" id="photo-guide" aria-labelledby="photoGuideSectionTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Core Places</p>
+        <h2 id="photoGuideSectionTitle">核心景點照片</h2>
+        <p>可依城市或大學參訪分類切換；點選景點後，大圖、說明與授權來源會同步更新。</p>
+      </div>
+      <div class="photo-guide-groups" id="photoGuideGroups" aria-label="照片分類"></div>
+      <div class="photo-guide-layout">
+        <figure class="photo-guide-viewer">
+          <img id="photoGuideImage" src="" alt="">
+          <figcaption class="photo-guide-overlay">
+            <span id="photoGuideCity">Washington, DC</span>
+            <strong id="photoGuideName">國家廣場與紀念館區</strong>
+            <small>使用右側或下方按鈕切換景點照片</small>
+          </figcaption>
+        </figure>
+        <div class="photo-guide-panel">
+          <div class="photo-guide-actions" id="photoGuideActions" aria-label="景點照片切換"></div>
+          <div class="photo-guide-detail" id="photoGuideDetail"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="attractions" aria-labelledby="attractionsTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Travel</p>
+        <h2 id="attractionsTitle">旅遊行程與景點建議</h2>
+        <p>每個景點皆包含推薦理由、停留時間、交通方式、親子友善程度與低負擔／加強版本。</p>
+      </div>
+      <div class="info-grid" id="attractionGrid"></div>
+    </section>
+
+    <section class="section" id="universities" aria-labelledby="universitiesTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Campus Visits</p>
+        <h2 id="universitiesTitle">東岸大學參訪</h2>
+        <p>以校園與心理學教育環境觀察為主，不預設為已確認正式會議。</p>
+      </div>
+      <div class="info-grid" id="universityGrid"></div>
+    </section>
+  </main>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="返回頂部">Top</button>
+  <footer class="footer">
+    <p>景點開放時間、票券與校園導覽名額請以官方網站為準。</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

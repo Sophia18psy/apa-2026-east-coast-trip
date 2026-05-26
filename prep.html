@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>行前準備與風險控管｜APA 2026 East Coast</title>
+  <meta name="description" content="APA 2026 東岸行程行前準備 checklist 與風險控管。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="主要導覽">
+      <a class="brand" href="index.html#top">APA 2026 East Coast</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navLinks">選單</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">首頁</a>
+        <a href="itinerary.html">每日行程</a>
+        <a href="apa.html">APA</a>
+        <a href="attractions.html">景點照片</a>
+        <a href="logistics.html">交通住宿</a>
+        <a href="prep.html">行前準備</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="section page-intro" aria-labelledby="checklistTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Preparation</p>
+        <h1 id="checklistTitle">行前準備 Checklist</h1>
+        <p>勾選狀態會存在本機瀏覽器 localStorage，下次開啟仍會保留。</p>
+      </div>
+      <div class="checklist-toolbar">
+        <div class="progress-wrap" aria-label="完成進度">
+          <div class="progress-text" id="checklistProgressText">0 / 0 已完成</div>
+          <div class="progress-track"><div class="progress-bar" id="checklistProgressBar"></div></div>
+        </div>
+        <button class="button secondary small" type="button" id="resetChecklist">清除勾選</button>
+      </div>
+      <div class="checklist" id="checklistItems"></div>
+    </section>
+
+    <section class="section" id="risks" aria-labelledby="risksTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Risk Control</p>
+        <h2 id="risksTitle">風險控管與備援方案</h2>
+        <p>每項包含可能風險、預防方式、發生時處理方式與備援方案。</p>
+      </div>
+      <div class="accordion" id="riskAccordion"></div>
+    </section>
+  </main>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="返回頂部">Top</button>
+  <footer class="footer">
+    <p>Checklist 可放公開旅遊準備事項，但不要放入護照號碼、信用卡或完整訂單資訊。</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

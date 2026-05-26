@@ -1,0 +1,9 @@
+outputs/
+*.xlsx
+*.xls
+*.csv
+*.pdf
+AGENTS.md
+.DS_Store
+Thumbs.db
+

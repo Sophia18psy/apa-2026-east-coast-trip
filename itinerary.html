@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>每日行程｜APA 2026 East Coast</title>
+  <meta name="description" content="APA 2026 東岸親子旅遊每日行程、日期篩選與 APA/旅遊模式。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="主要導覽">
+      <a class="brand" href="index.html#top">APA 2026 East Coast</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navLinks">選單</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">首頁</a>
+        <a href="itinerary.html">每日行程</a>
+        <a href="apa.html">APA</a>
+        <a href="attractions.html">景點照片</a>
+        <a href="logistics.html">交通住宿</a>
+        <a href="prep.html">行前準備</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="section page-intro" aria-labelledby="dailyTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Daily Planner</p>
+        <h1 id="dailyTitle">每日行程</h1>
+        <p>可切換 APA 模式或旅遊模式，並依日期與類別篩選。每張卡片可展開查看完整內容。</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="overviewTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Timeline</p>
+        <h2 id="overviewTitle">日期軸總覽</h2>
+        <p>點選日期可同步篩選下方每日行程。</p>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <section class="section" id="daily" aria-labelledby="dailyPlannerTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Filters</p>
+        <h2 id="dailyPlannerTitle">行程篩選</h2>
+      </div>
+      <div class="controls" aria-label="行程篩選工具">
+        <div class="control-group">
+          <label for="dateFilter">日期</label>
+          <select id="dateFilter"></select>
+        </div>
+        <div class="control-group">
+          <label for="categoryFilter">類別</label>
+          <select id="categoryFilter"></select>
+        </div>
+        <div class="mode-switch" role="group" aria-label="模式切換">
+          <button class="mode-button active" type="button" data-mode="all">全部</button>
+          <button class="mode-button" type="button" data-mode="apa">APA 模式</button>
+          <button class="mode-button" type="button" data-mode="travel">旅遊模式</button>
+        </div>
+      </div>
+      <div class="reminder-card" id="todayReminder" aria-live="polite"></div>
+      <div class="day-grid" id="dayGrid"></div>
+    </section>
+  </main>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="返回頂部">Top</button>
+  <footer class="footer">
+    <p>每日行程為可執行版本，APA 官方議程與景點開放狀態仍需行前再次確認。</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
