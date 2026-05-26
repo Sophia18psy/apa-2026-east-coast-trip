@@ -577,6 +577,42 @@ select {
   grid-column: 1 / -1;
 }
 
+.route-box {
+  background: #f8fbff;
+}
+
+.route-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.route-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--gray-200);
+  border-radius: 7px;
+  background: var(--white);
+  padding: 12px;
+}
+
+.route-path {
+  display: block;
+  color: var(--navy);
+  font-weight: 900;
+}
+
+.route-item p {
+  margin: 4px 0;
+  color: var(--gray-800);
+}
+
+.route-item small {
+  color: var(--gray-500);
+}
+
 .apa-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -632,6 +668,12 @@ select {
   color: var(--navy);
   font-weight: 800;
   background: var(--gray-50);
+}
+
+.map-link {
+  border-color: rgba(37, 99, 235, 0.28);
+  background: #eef6ff;
+  color: #17426f;
 }
 
 .attraction-links {
@@ -821,6 +863,16 @@ select {
 
 .session-card.hidden {
   display: none;
+}
+
+.avoid-summary {
+  grid-column: 1 / -1;
+  border: 1px solid rgba(184, 134, 11, 0.26);
+  border-radius: 7px;
+  background: #fff8e5;
+  color: var(--gray-700);
+  margin: 0;
+  padding: 12px;
 }
 
 .session-topline {
@@ -1143,6 +1195,14 @@ select {
   .checklist,
   .risk-grid {
     grid-template-columns: 1fr;
+  }
+
+  .route-item {
+    grid-template-columns: 1fr;
+  }
+
+  .route-item .source-link {
+    width: 100%;
   }
 
   .meta-line {

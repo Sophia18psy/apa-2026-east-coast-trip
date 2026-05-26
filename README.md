@@ -1,6 +1,6 @@
-# APA 2026 美國研討會暨東岸親子旅遊互動規劃
+# APA 2026 美國研討會暨東岸學術參訪互動規劃
 
-這是一個純 HTML、CSS、JavaScript 製作的靜態互動網站，用於查詢 2026/8/2-8/15 APA 2026 研討會、海報發表、東岸親子旅遊、大學參訪、交通住宿、行前準備與風險備援。目前主線為 JFK／紐約、華盛頓特區、紐約、JFK；費城與 UPenn 保留為可選一日延伸備案。
+這是一個純 HTML、CSS、JavaScript 製作的靜態互動網站，用於查詢 2026/8/2-8/15 APA 2026 研討會、海報發表、東岸學術參訪、大學參訪、交通住宿、行前準備與風險備援。目前主線為 JFK／紐約、華盛頓特區、紐約、JFK；費城與 UPenn 保留為可選一日延伸備案。
 
 本版本不使用 React、Vue、Next.js、npm、後端或資料庫，可離線開啟，也可部署到 GitHub Pages 或 Vercel。
 
@@ -8,33 +8,33 @@
 
 1. 打開資料夾 `D:\工作用(20250117)\出國\2026美國`。
 2. 直接雙擊 `index.html`。
-3. 使用瀏覽器開啟後即可從首頁進入每日行程、APA、景點照片、交通住宿、行前準備與風險控管頁面。
+3. 使用瀏覽器開啟後即可從首頁進入每日行程、APA、參訪地點、交通住宿、行前準備與風險控管頁面。
 
 如果瀏覽器阻擋本機檔案，請改用 Chrome、Edge 或 Firefox 開啟。
 
 ## 檔案結構
 
 ```text
-index.html        首頁、旅程摘要、主要功能入口
-itinerary.html    每日行程、日期篩選、APA/旅遊模式
+index.html        首頁、行程摘要、主要功能入口
+itinerary.html    每日行程、日期篩選、APA/參訪模式
 apa.html          APA 2026、海報發表、議程媒合方向
-attractions.html  景點建議、核心景點照片導覽、大學參訪
+attractions.html  參訪地點建議、核心參訪地點照片、大學參訪
 logistics.html    跨城市交通與住宿區域建議
 prep.html         行前準備 checklist 與風險控管
 style.css         視覺樣式、響應式版面、卡片與按鈕
 script.js         所有行程資料與互動功能
-images/           本機景點照片，支援離線瀏覽
+images/           本機參訪照片，支援離線瀏覽
 README.md         使用、修改與部署說明
 ```
 
-## 如何替換景點照片導覽圖片
+## 如何替換參訪地點照片
 
-景點照片導覽資料在 `script.js` 的 `photoGuideItems` 陣列。本版已擴充為核心景點照片導覽，照片下載到 `images/` 資料夾，因此網站離線也能顯示預覽。此區使用一般 JPG 或 PNG 照片即可，不需要特殊比例。
+參訪地點照片資料在 `script.js` 的 `photoGuideItems` 陣列。本版已擴充為核心參訪地點照片，照片下載到 `images/` 資料夾，因此網站離線也能顯示預覽。此區使用一般 JPG 或 PNG 照片即可，不需要特殊比例。
 
 替換方式：
 
 1. 將照片放到專案資料夾，例如 `images/dc-national-mall-photo.jpg`。
-2. 在 `photoGuideItems` 找到對應景點。
+2. 在 `photoGuideItems` 找到對應參訪地點。
 3. 將 `image` 改成新圖片路徑。
 4. 同步更新 `credit`、`license` 與 `sourceUrl`。
 5. 儲存後重新整理 `attractions.html`。
@@ -49,7 +49,7 @@ README.md         使用、修改與部署說明
   image: "images/dc-national-mall-photo.jpg",
   credit: "G. Edward Johnson / Wikimedia Commons",
   license: "CC BY 4.0",
-  sourceUrl: "https://commons.wikimedia.org/wiki/File:360_panorama_National_Mall_Washington_DC_2025-08-17_08-41-44_1.jpg"
+  sourceUrl: "https://commons.wikimedia.org/wiki/..."
 }
 ```
 
@@ -93,7 +93,7 @@ README.md         使用、修改與部署說明
   afternoon: "下午行程",
   evening: "晚間行程",
   transport: "交通方式",
-  highlight: "旅遊重點",
+  highlight: "參訪重點",
   meal: "餐食與休息",
   notice: "當日注意事項",
   backup: "備援方案",
@@ -104,6 +104,30 @@ README.md         使用、修改與部署說明
 ```
 
 修改文字後儲存 `script.js`，重新整理瀏覽器即可看到更新。
+
+## 如何修改每日交通動線與路線地圖
+
+每日行程卡中的「今日交通動線」由 `script.js` 的 `dailyRoutePlans` 管理。每一段路線包含：
+
+- `from`：起點。
+- `to`：終點。
+- `method`：建議交通方式。
+- `buffer`：時間緩衝或注意事項。
+- `mapUrl`：路線地圖連結。
+
+一般地點地圖可使用：
+
+```javascript
+mapSearchUrl("Central Park New York")
+```
+
+起點到終點路線可使用：
+
+```javascript
+mapDirectionsUrl("Moynihan Train Hall at Penn Station", "Washington Union Station", "transit")
+```
+
+朋友家、住宿地址、私人寄放點等敏感位置不要寫進公開網站；可先寫「朋友家／寄放點」，行程前再由同行人員各自在路線地圖儲存私人地址。
 
 ## Amtrak 車站名稱與搜尋方式
 
@@ -132,15 +156,17 @@ Washington, DC - Union Station (WAS)
 
 紐約 8/8-8/13 建議選 Midtown、Upper West Side、Chelsea 或交通安全便利區；返程前若市區交通不穩，可把 JFK 周邊短暫休息方案作備援。
 
-## 如何新增、刪除或修改景點
+## 如何新增、刪除或修改參訪地點
 
-景點資料在 `script.js` 的 `attractions` 陣列。
+參訪地點資料在 `script.js` 的 `attractions` 陣列。
 
-每個景點包含城市、景點名稱、推薦理由、停留時間、交通方式、適合日期、親子友善程度、低負擔版本、加強版本、官方首頁、門票／預約頁與票券提醒。
+每個參訪地點包含城市、參訪地點名稱、參訪理由、停留時間、交通方式、適合日期、同行便利程度、低負擔版本、加強版本、路線地圖、官方首頁、門票／預約頁與票券提醒。
 
-新增景點時，複製既有物件並修改內容即可。刪除景點時，刪除該物件即可。
+新增參訪地點時，複製既有物件並修改內容即可。刪除參訪地點時，刪除該物件即可。
 
-票券連結請優先使用官方或官方授權頁，例如 NPS、博物館官方網站、學校官方導覽報名頁、MLB／洋基官方票務頁。若景點免票或無需預約，請將 `ticketUrl` 留空，並在 `ticketNote` 寫清楚「免票，無需預約」，避免誤導家人去第三方平台購票。
+票券連結請優先使用官方或官方授權頁，例如 NPS、博物館官方網站、學校官方導覽報名頁、洋基體育館官方票務頁。若參訪地點免票或無需預約，請將 `ticketUrl` 留空，並在 `ticketNote` 寫清楚「免票，無需預約」，避免誤導同行人員去第三方平台購票。
+
+參訪地點地圖由 `mapUrl` 控制；若沒有手動填寫，網站會依參訪地點名稱與城市產生 路線地圖搜尋連結。若要更精準，可在 `attractionMapUrls` 補上指定搜尋字串或路線。
 
 ## 如何新增或調整頁面
 
@@ -266,29 +292,29 @@ git push
 - 航班編號與時間
 - 城市與日期
 - APA 發表時間
-- 景點名稱
+- 參訪地點名稱
 - 交通提醒
 - 不含個資的 checklist
-- 公開可查的會議與景點資訊
+- 公開可查的會議與參訪地點資訊
 
 ## 未來升級方向
 
-第一版是靜態網站。未來若要做成「可線上編輯、家人同步查看」版本，可考慮：
+第一版是靜態網站。未來若要做成「可線上編輯、同行人員同步查看」版本，可考慮：
 
 1. 管理者編輯模式
    - 加入登入功能。
    - 只有管理者可以修改行程。
-   - 家人只能查看。
+   - 同行人員只能查看。
 
 2. 雲端同步
    - 將 `script.js` 的資料陣列改存到 Firebase、Supabase 或其他雲端資料庫。
-   - 管理者在線上更新後，先生與女兒重新整理頁面即可看到新版本。
+   - 管理者在線上更新後，同行人員重新整理頁面即可看到新版本。
 
 3. 多人共用
-   - 加入每位家人的想去景點。
+   - 加入參訪備註與分工。
    - 加入票券狀態、備註與 checklist 分工。
 
-4. 手機旅行模式
+4. 手機行程模式
    - 顯示今天行程。
    - 顯示下一個地點。
    - 顯示交通提醒與票券提醒。
