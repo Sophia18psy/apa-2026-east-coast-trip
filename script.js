@@ -838,10 +838,54 @@ const transportPlans = [
 ];
 
 const lodgingPlans = [
-  { city: "JFK 抵達首晚", area: "首選 TWA Hotel（航廈內，AirTrain 至 Terminal 5 後空橋銜接）；次選 JFK 周邊有免費接駁的連鎖飯店", priority: "抵達日第一優先", reason: "20:50 抵達 JFK 後仍需入境、領行李與移動；TWA Hotel 或 JFK 周邊住宿可避免深夜進曼哈頓。", note: "若住 Manhattan，建議行李少時才考慮 AirTrain → Jamaica → LIRR → Penn Station，或直接預約接送。" },
-  { city: "華盛頓特區", area: "暫定住朋友家，不另規劃 DC 飯店", priority: "已暫定", reason: "可降低住宿成本，也方便同行人員在 APA 期間有固定休息點；不在網站放朋友家地址、門牌或電話。", note: "出發前需確認朋友家至 Walter E. Washington Convention Center、Washington Union Station 與主要 Metro 站的實際通勤時間；8/8 需先確認行李放置與取行李動線。" },
-  { city: "紐約", area: "Midtown、Upper West Side、Chelsea 或交通安全便利區", priority: "第二優先", reason: "8/8 起連住紐約，可銜接 Columbia、NYU、AMNH、劇院區、運動文化場域 與 JFK 交通。", note: "8/8 抵達後只安排入住休息；8/13 晚間需規劃行李寄放與前往 JFK。" },
-  { city: "JFK 機場周邊", area: "機場附近短暫休息方案", priority: "備援", reason: "若市區交通不穩或希望降低凌晨航班壓力，可考慮。", note: "需評估是否值得多一次搬行李。" }
+  { city: "JFK 抵達首晚", area: "首選 TWA Hotel（航廈內，AirTrain 至 Terminal 5 後空橋銜接）；次選 JFK 周邊有免費接駁的連鎖飯店", priority: "待預訂：8/2 入住、8/3 退房", reason: "20:50 抵達 JFK 後仍需入境、領行李與移動；TWA Hotel 或 JFK 周邊住宿可避免深夜進曼哈頓。", note: "只訂可取消房價；三人同行需確認 2 beds 或明確可住 3 人。若住 Manhattan，行李少時才考慮 AirTrain → Jamaica → LIRR → Penn Station，或直接預約接送。" },
+  { city: "華盛頓特區", area: "暫定住朋友家，不先付款訂 DC 飯店", priority: "朋友家確認中；APA 官方 onPeak 只作備援", reason: "可降低住宿成本，也方便同行人員在 APA 期間有固定休息點；不在網站放朋友家地址、門牌或電話。", note: "出發前需確認朋友家至 Walter E. Washington Convention Center、Washington Union Station 與主要 Metro 站的實際通勤時間；若朋友家有變數，再查 APA 官方 onPeak 可取消房。" },
+  { city: "紐約", area: "Upper West Side、Midtown West／Times Square 北側、Chelsea", priority: "待預訂：8/8 入住、8/13 退房，連住 5 晚", reason: "8/8 起連住紐約，可銜接 Columbia、NYU、AMNH、劇院區、運動文化場域 與 JFK 交通。", note: "搜尋 3 guests、2 beds、free cancellation、close to subway、non-smoking；避開不可退款、無電梯或只保證一大床的房型。" },
+  { city: "JFK 機場周邊", area: "機場附近短暫休息方案", priority: "備援，不先訂", reason: "若市區交通不穩或希望降低凌晨航班壓力，可考慮。", note: "需評估是否值得多一次搬行李；8/13 晚間主方案仍是保留市區住宿至晚間或確認行李寄放後直接前往 JFK。" }
+];
+
+const hotelBookingPlans = [
+  {
+    status: "待預訂",
+    title: "JFK 首晚住宿",
+    dates: "2026/8/2 入住，2026/8/3 退房",
+    target: "TWA Hotel JFK；若價格過高，改查 JFK 周邊有接駁的連鎖飯店。",
+    room: "3 guests；優先 2 beds 或明確標示可住 3 人。",
+    rules: "只選可取消房價，記下免費取消期限與 late check-in 規則。",
+    action: "先查 TWA Hotel 官方訂房，再比較 JFK 周邊接駁飯店。",
+    url: "https://www.twahotel.com/",
+    urlLabel: "TWA Hotel 官方網站"
+  },
+  {
+    status: "朋友家為主",
+    title: "華盛頓 D.C. 會議期間",
+    dates: "2026/8/3 入住，2026/8/8 離開",
+    target: "不先訂飯店；朋友家為主，APA 官方 onPeak 飯店只作備援。",
+    room: "若需要備援飯店，再找可取消、離會場或 Metro 方便的房型。",
+    rules: "不要把朋友家地址、門牌、電話或完整私人位置放到公開網站。",
+    action: "確認朋友家到會場、Union Station、主要 Metro 站的實際時間。",
+    url: "https://convention.apa.org/hotels",
+    urlLabel: "APA 官方住宿備援"
+  },
+  {
+    status: "待預訂",
+    title: "紐約連住 5 晚",
+    dates: "2026/8/8 入住，2026/8/13 退房",
+    target: "Upper West Side、Midtown West／Times Square 北側、Chelsea。",
+    room: "3 guests；2 beds；non-smoking；有電梯；距地鐵步行便利。",
+    rules: "中價可取消優先；避免不可退款、房間過小、交通不便或只保證一大床。",
+    action: "優先比較 Hotel Beacon、Arthouse Hotel、The Wallace、Courtyard Manhattan Chelsea、Kixby 類型的官方或大型平台可取消房價。",
+    url: "https://www.google.com/travel/hotels/New%20York",
+    urlLabel: "紐約住宿搜尋"
+  }
+];
+
+const hotelPreBookingChecks = [
+  "所有房價選可取消，截圖或記下免費取消期限。",
+  "信用卡效期需涵蓋 2026 年 8 月。",
+  "確認 3 位住客、2 beds、禁菸房、電梯與晚間入住規則。",
+  "保存確認信，但不要把訂單編號、完整地址、信用卡或護照資料放到公開網站。",
+  "訂完後只在網站更新狀態，例如「JFK 首晚已訂」、「紐約 8/8-8/13 已訂」、「DC 朋友家確認中」。"
 ];
 
 const logisticsMapLinks = [
@@ -1082,6 +1126,9 @@ const checklistItems = [
   "ESTA 或簽證資料",
   "護照效期確認",
   "住宿確認資料",
+  "JFK 首晚可取消住宿確認",
+  "紐約 8/8-8/13 可取消住宿確認",
+  "DC 朋友家通勤與行李放置確認",
   "國際航班確認資料",
   "美國境內交通訂票資料",
   "海外保險",
@@ -1143,6 +1190,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderUniversities();
   renderAttractions();
   renderPhotoGuide();
+  renderHotelBooking();
   renderTransport();
   renderLodging();
   renderChecklist();
@@ -1572,6 +1620,37 @@ function renderLodging() {
       ${metaLine("提醒", item.note)}
     </article>
   `).join("");
+}
+
+function renderHotelBooking() {
+  const grid = document.getElementById("hotelBookingGrid");
+  if (grid) {
+    grid.innerHTML = hotelBookingPlans.map((item) => `
+      <article class="booking-card">
+        <div class="booking-card-header">
+          <span class="booking-status">${item.status}</span>
+          <h3>${item.title}</h3>
+        </div>
+        ${metaLine("日期", item.dates)}
+        ${metaLine("目標", item.target)}
+        ${metaLine("房型", item.room)}
+        ${metaLine("取消與付款", item.rules)}
+        ${metaLine("下一步", item.action)}
+        <div class="attraction-links">
+          <a class="source-link" href="${item.url}" target="_blank" rel="noopener">${item.urlLabel}</a>
+        </div>
+      </article>
+    `).join("");
+  }
+
+  const panel = document.getElementById("hotelCheckPanel");
+  if (!panel) return;
+  panel.innerHTML = `
+    <h3>付款前逐項確認</h3>
+    <ul class="booking-check-list">
+      ${hotelPreBookingChecks.map((item) => `<li>${item}</li>`).join("")}
+    </ul>
+  `;
 }
 
 function metaLine(label, value) {
