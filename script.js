@@ -1176,6 +1176,110 @@ let activeMode = "all";
 let activePhotoGuideGroup = "全部";
 let activeAttractionCity = "全部";
 
+// 2026/6 行程重排：費城改回主線；下列覆寫集中於此，避免日程、交通、景點與訂房資訊分散失真。
+function applyReplannedTrip() {
+  summaryCards[2] = { title: "東岸大學參訪", text: "8/3 安排賓州大學心理學系／校園自助參訪；紐約段續保留 Columbia、NYU 的學術環境觀察。未確認任何正式會議。" };
+  summaryCards[4] = { title: "交通與地圖", text: "費城段使用租車，8/4 自駕至 D.C.；D.C. 至紐約仍以 Amtrak、Metro、步行與必要時短程叫車為主。" };
+  summaryCards[5] = { title: "紐約參訪", text: "中央公園、AMNH、NYU、Columbia、911 紀念、自由女神、劇院區與已購票的 8/11 洋基球場導覽及球賽。" };
+
+  const day = (id) => tripDays.find((item) => item.id === id);
+  Object.assign(day("2026-08-02"), {
+    city: "臺灣桃園 → JFK → 費城", lodging: "費城住宿（8/2 入住、8/4 退房；以可取消、停車便利與三人房型為優先）。",
+    morning: "前往臺灣桃園國際機場，完成 CI 12 報到與出境；機上休息並調整時差。",
+    afternoon: "17:30 搭乘 CI 12 自桃園出發；機上用餐、補水，準備抵達後領車與長途移動。",
+    evening: "20:50 抵達 JFK，完成入境與領行李後取租車，直接開車前往費城住宿。全程約 2–3 小時且受塞車影響；只辦理入住與休息。",
+    transport: "國際航班 + JFK 取車自駕至費城；請預先確認租車櫃檯營業時間、跨州行駛規則、保險、EZ-Pass／過路費與飯店停車。",
+    highlight: "抵達日以安全抵達費城與睡眠為唯一目標，不安排景點或晚餐行程。", meal: "機上餐為主；若抵達後需要補給，僅在住宿附近簡單外帶。",
+    notice: "晚間入境、取車與 I-95 路況皆可能延誤；若無法安全完成夜間自駕，優先改住 JFK 周邊並於隔日清晨再前往費城。",
+    backup: "保留可取消的 JFK 周邊住宿或費城住宿晚到入住方案；不可勉強疲勞駕駛。"
+  });
+  Object.assign(day("2026-08-03"), {
+    city: "費城", lodging: "費城住宿（連住；確認停車、早餐與前往 Citizens Bank Park 的晚間交通）。",
+    morning: "上午安排賓州大學心理學系與 University City 自助參訪：Locust Walk、David Rittenhouse Laboratory／心理學系周邊與校園公共空間；不寫成正式拜會。",
+    afternoon: "午餐後安排 Independence National Historical Park：自由鐘、獨立宮外觀／預約導覽與 Old City 輕量步行；15:45–16:00 前回住宿或停車點整理，提早前往球場。",
+    evening: "已購票：18:40（ET） Nationals @ Phillies，Citizens Bank Park。建議 17:30 前抵達球場周邊，預留安檢、入場與找座位時間；散場後以叫車或事先確認停車場離場動線為主。",
+    transport: "白天以步行、SEPTA 或短程叫車；晚間優先 Broad Street Line／叫車，若自駕須事先確認 Citizens Bank Park 停車與散場車潮。",
+    highlight: "完成至少一站賓州大學心理學教育環境觀察，並以已購票費城人主場賽作為當日唯一晚間主活動。", meal: "校園或 Old City 早午餐；球賽前 16:30 左右提早用餐或球場內簡餐。",
+    notice: "UPenn 參訪為自助校園／系所周邊觀察，是否有導覽、建築開放與入館規則請以校方當日公告為準。球賽開賽時間、入場規則與座位資訊以 Phillies／MLB 電子票券最終顯示為準。",
+    backup: "若天候炎熱或上午疲勞，只保留 Locust Walk 與心理學系周邊短程參訪；獨立宮改為外觀與自由鐘，仍須保留球賽前緩衝。"
+  });
+  Object.assign(day("2026-08-04"), {
+    city: "費城 → 華盛頓特區", lodging: "華盛頓 D.C. 朋友家／寄放點（不公開地址）。",
+    morning: "退房前安排費城低負擔室內參訪：The Franklin Institute 或 Philadelphia Museum of Art 二選一；避免安排兩個大型博物館。",
+    afternoon: "午餐後取車與行李，自駕前往華盛頓特區；費城至 D.C. 約 2.5–3.5 小時，需依 I-95 路況、休息與停車調整。抵達後安置行李與休息。",
+    evening: "僅在住處附近簡單晚餐、補給或短暫散步；不強制安排國家廣場，將 D.C. 代表景點留給 APA 期間的輕量時段。",
+    transport: "租車自駕 Philadelphia → Washington, D.C.；出發前確認 D.C. 停車、還車地點、朋友家附近停車規則與過路費。",
+    highlight: "跨城市移動日保持低負擔，確保 8/5 會前工作坊與 8/6 海報發表前的休息。", meal: "費城退房前早午餐；路途中簡單補給，抵達 D.C. 後不排正式餐敘。",
+    notice: "不要把費城上午行程排滿；最晚依即時路況提早出發。若租車不在 D.C. 使用，應優先確認可還車時間與跨州還車費。",
+    backup: "若費城天候或體力不佳，取消博物館，早餐後直接開車；D.C. 抵達後只入住休息。"
+  });
+  Object.assign(day("2026-08-11"), {
+    city: "紐約・Yankee Stadium", lodging: "紐約住宿。",
+    morning: "維持低負擔節奏：睡到自然醒、住宿附近早餐與輕量整理；不安排 Lower Manhattan 長距離步行。",
+    afternoon: "參加已安排的 Yankee Stadium Tour（實際集合時間、入口與導覽長度以官方確認信／電子票券為準）。導覽後在球場周邊用餐、休息與入場準備。",
+    evening: "已購票：19:05（ET） Mariners @ Yankees，Yankee Stadium。建議 18:00 前完成安檢與入場；散場後注意人潮，地鐵與 App 叫車皆保留備案。",
+    transport: "住宿 → Yankee Stadium 以地鐵或叫車為主；導覽、球賽與散場全日都以同一球場動線處理，避免加排其他跨區景點。",
+    highlight: "8/11 以洋基球場導覽 + 已購票球賽為唯一核心，避免全天過度步行。", meal: "導覽前簡單午餐；導覽後 16:30–17:30 在球場周邊提早用餐或入場後購買簡餐。",
+    notice: "電子票券顯示為 19:05 開賽；實際賽程、球場導覽集合規則、票券、安檢與座位狀態均以 Yankees／MLB 官方與電子票券最終公告為準。",
+    backup: "若導覽因官方安排異動，保留球賽入場；若遇雨延或體力不足，依官方票務規則處理，散場優先叫車或改搭人潮較可控的地鐵。"
+  });
+  Object.assign(day("2026-08-12"), {
+    city: "紐約・Lower Manhattan 彈性日",
+    morning: "安排自由女神／砲台公園；若不登島，改為砲台公園遠眺與 Lower Manhattan 輕量散步。",
+    afternoon: "911 紀念館（可先查 timed entry）與 World Trade Center 周邊；體力足夠才續走布魯克林大橋 Manhattan 端或 DUMBO 遠眺。",
+    evening: "依體力選擇劇院區短程觀察、Times Square 晚餐，或回住宿休息；不安排 MLB。",
+    transport: "地鐵至 Battery Park／World Trade Center；炎熱或人潮高時以短程叫車縮短步行。",
+    highlight: "將原 8/11 的 Lower Manhattan 主線移至 8/12，為洋基球場全天安排保留完整緩衝。",
+    notice: "自由女神登島、911 博物館時段與任何晚間節目均須以官方票券與當日天候為準。"
+  });
+
+  dailyRoutePlans["2026-08-02"] = [
+    { from: "JFK Terminal", to: "租車取車點", method: "依租車公司接駁／航廈指示", buffer: "完成入境與領行李後再取車；確認夜間櫃檯與車況。", mapUrl: mapSearchUrl("JFK Rental Car") },
+    { from: "JFK", to: "費城住宿", method: "租車自駕", buffer: "約 2–3 小時，依 I-95 路況；疲勞時不可勉強駕駛。", mapUrl: mapDirectionsUrl("John F. Kennedy International Airport", "Philadelphia PA", "driving") }
+  ];
+  dailyRoutePlans["2026-08-03"] = [
+    { from: "費城住宿", to: "University of Pennsylvania Psychology", method: "步行、SEPTA 或短程叫車", buffer: "上午自助校園與系所周邊觀察；不假設正式導覽。", mapUrl: mapSearchUrl("University of Pennsylvania Psychology Department") },
+    { from: "UPenn / University City", to: "Independence National Historical Park", method: "SEPTA、短程叫車或步行銜接", buffer: "午後維持低負擔，保留球賽前回住宿與用餐時間。", mapUrl: mapDirectionsUrl("University of Pennsylvania", "Independence National Historical Park", "transit") },
+    { from: "費城住宿／Old City", to: "Citizens Bank Park", method: "Broad Street Line、叫車或自駕停車", buffer: "17:30 前抵達球場周邊，處理安檢與入場。", mapUrl: mapDirectionsUrl("Philadelphia PA", "Citizens Bank Park", "transit") }
+  ];
+  dailyRoutePlans["2026-08-04"] = [
+    { from: "費城住宿", to: "The Franklin Institute 或 Philadelphia Museum of Art", method: "步行、叫車或自駕", buffer: "只擇一參訪，午餐後須保留取車與裝載行李時間。", mapUrl: mapSearchUrl("The Franklin Institute Philadelphia") },
+    { from: "費城", to: "華盛頓 D.C. 朋友家／寄放點", method: "租車自駕", buffer: "約 2.5–3.5 小時，視 I-95 路況、休息與停車調整。", mapUrl: mapDirectionsUrl("Philadelphia PA", "Washington DC", "driving") }
+  ];
+  dailyRoutePlans["2026-08-11"] = [
+    { from: "紐約住宿", to: "Yankee Stadium", method: "地鐵或叫車", buffer: "下午導覽集合時間與入口，以官方確認信為準。", mapUrl: mapSearchUrl("Yankee Stadium") },
+    { from: "Yankee Stadium Tour", to: "Yankee Stadium 球賽入場", method: "球場周邊步行", buffer: "導覽後在周邊用餐與休息，18:00 前完成安檢入場。", mapUrl: mapSearchUrl("Yankee Stadium") },
+    { from: "Yankee Stadium", to: "紐約住宿", method: "地鐵或 App 叫車", buffer: "散場人潮高；地鐵與叫車兩案都先確認。", mapUrl: mapDirectionsUrl("Yankee Stadium", "Midtown Manhattan", "transit") }
+  ];
+  dailyRoutePlans["2026-08-12"] = [
+    { from: "紐約住宿", to: "Battery Park / Statue Cruises", method: "地鐵或短程叫車", buffer: "若登島，上午提早出發；未登島則只做砲台公園遠眺。", mapUrl: mapSearchUrl("Statue City Cruises Battery Park") },
+    { from: "Battery Park", to: "911 Memorial & Museum", method: "步行", buffer: "下午保留安靜、低負擔節奏。", mapUrl: mapDirectionsUrl("Battery Park New York", "9/11 Memorial & Museum", "walking") },
+    { from: "911 Memorial", to: "Brooklyn Bridge / DUMBO", method: "步行、地鐵或短程叫車", buffer: "天候炎熱或疲勞時只在 Manhattan 端拍照。", mapUrl: mapDirectionsUrl("9/11 Memorial & Museum", "Brooklyn Bridge", "walking") }
+  ];
+
+  const upenn = universities.find((item) => item.name.includes("Pennsylvania"));
+  Object.assign(upenn, { date: "8/3 上午", purpose: "賓州大學心理學教育與研究環境自助觀察。", focus: "Locust Walk、心理學系／David Rittenhouse Laboratory 周邊與 University City 公共空間；不預設正式會議。", transport: "費城住宿至 University City 以步行、SEPTA 或短程叫車。", note: "校園導覽、建築開放與 Visit Center 狀態以 UPenn 官方公告為準；本行程僅列自助參訪。" });
+  const updateAttraction = (name, values) => Object.assign(attractions.find((item) => item.name === name), values);
+  updateAttraction("獨立宮與自由鐘", { reason: "費城主線的建國歷史核心，與 8/3 UPenn 自助參訪可串成一個低負擔白天。", date: "8/3 下午", ticketNote: "獨立宮可能需票券或預約；自由鐘中心通常免票。請於出發前依 NPS 當日公告確認。" });
+  updateAttraction("University City 與 UPenn 周邊", { reason: "8/3 上午安排賓州大學心理學系／校園自助參訪，觀察心理學教育與研究環境。", date: "8/3 上午", ticketNote: "不寫成正式拜會；導覽、建築開放與 Visit Center 狀態以 UPenn 官方頁面為準。" });
+  updateAttraction("自由女神", { date: "8/12 上午" });
+  updateAttraction("911 紀念博物館", { date: "8/12 下午或 8/13 備選" });
+  updateAttraction("布魯克林大橋", { date: "8/12 傍晚或 8/13 備選" });
+  updateAttraction("MLB 洋基體育館球賽", { reason: "已購票的 2026/8/11 Mariners @ Yankees，另安排同日下午 Yankee Stadium Tour。", date: "2026/8/11 19:05（ET）已購票", low: "參加下午球場導覽後，在球場周邊休息並提早入場。", plus: "完整參與導覽與球賽；散場預留地鐵或 App 叫車備案。", ticketNote: "電子票券顯示 2026/8/11 19:05 Mariners @ Yankees；賽程、入場規則、導覽集合安排與座位狀態仍以 Yankees／MLB 官方和電子票券最終公告為準。" });
+
+  const replaceTransport = (route, values) => Object.assign(transportPlans.find((item) => item.route === route), values);
+  replaceTransport("租車 vs Amtrak 判斷", { method: "費城段使用租車；D.C. 至紐約仍建議 Amtrak + 市區交通。", time: "JFK → 費城晚間約 2–3 小時；費城 → D.C. 約 2.5–3.5 小時；D.C. → NYC Amtrak 約 3–3.5 小時。", pros: "租車可支援費城住宿、球場與 8/4 開車至 D.C.；D.C. 至紐約改火車可避免進城停車。", cons: "需處理夜間取車、跨州、停車、過路費、還車地點與 I-95 塞車。", family: "8/2 抵達後及 8/4 移動日都要降低負荷；不可疲勞駕駛。", luggage: "費城段行李集中放車內時不得留置證件或貴重物；進 D.C. 前確認停車與還車。", backup: "8/2 若入境延誤或疲勞，先住 JFK 周邊；8/4 若路況不佳則取消費城上午博物館，直接開車。" });
+  lodgingPlans.splice(0, 1, { city: "費城", area: "University City、Center City 或靠近可安全停車與前往球場交通的區域", priority: "待預訂：8/2 入住、8/4 退房，連住 2 晚", reason: "8/3 可銜接 UPenn／University City、Old City 與 Citizens Bank Park；8/4 直接自駕前往 D.C.。", note: "優先可取消房價、3 guests、2 beds、停車資訊清楚、夜間抵達可辦理入住；不可在公開網站記錄完整住宿地址或訂位資訊。" });
+  hotelBookingPlans.splice(0, 1, { status: "待預訂", title: "費城可取消住宿", dates: "2026/8/2 入住，2026/8/4 退房", target: "University City、Center City 或交通與停車便利區域。", room: "3 guests、2 beds 或明確可住 3 人；確認夜間入住與停車。", rules: "優先可取消房價；確認稅費、停車費、延遲入住及取消期限。", action: "比較費城飯店官方網站或可信訂房平台，確認 8/2 晚到入住與 8/3 球賽散場返程。", url: "https://www.visitphilly.com/hotels/", urlLabel: "費城住宿資訊" });
+
+  const phillyPhoto = photoGuideItems.find((item) => item.name === "University of Pennsylvania");
+  if (phillyPhoto) { phillyPhoto.date = "8/3 上午"; phillyPhoto.focus = "安排 UPenn 心理學系／University City 自助參訪；以 Locust Walk 與校園公共空間觀察學術環境，不預設正式會議。"; phillyPhoto.family = "白天安排，晚間需保留體力前往 Phillies 主場球賽。"; }
+  const yankeePhoto = photoGuideItems.find((item) => item.name === "MLB 洋基體育館球賽");
+  if (yankeePhoto) { yankeePhoto.date = "8/11 下午導覽＋19:05 球賽"; yankeePhoto.focus = "已購票 Mariners @ Yankees；下午安排 Yankee Stadium Tour，導覽後留在球場周邊用餐與入場。"; }
+}
+
+applyReplannedTrip();
+
 document.addEventListener("DOMContentLoaded", () => {
   redirectLegacyPhotoHash();
   renderHomeDashboard();
@@ -1893,4 +1997,25 @@ function renderMobileDock() {
     <a href="prep.html">準備</a>
   `;
   document.body.appendChild(dock);
+}
+
+// Keep the landing-page dashboard aligned with the replanned route.
+function renderHomeDashboard() {
+  const dashboard = document.getElementById("homeDashboard");
+  if (!dashboard) return;
+  const dashboardItems = [
+    { title: "8/2 抵達 JFK 後前往費城", text: "晚間取租車後自駕到費城住宿；若入境延誤或疲勞，優先使用 JFK 周邊住宿備案。", href: "itinerary.html?date=2026-08-02#daily", label: "查看 8/2" },
+    { title: "8/3 UPenn + Phillies", text: "上午賓州大學心理學系／校園自助參訪，下午獨立宮與自由鐘，18:40 已購票觀看 Nationals @ Phillies。", href: "itinerary.html?date=2026-08-03#daily", label: "查看 8/3" },
+    { title: "8/4 開車至 D.C.", text: "費城上午只安排一個低負擔室內景點；午餐後取車、行李與自駕前往華盛頓特區。", href: "itinerary.html?date=2026-08-04#daily", label: "查看 8/4" },
+    { title: "8/11 Yankee Stadium", text: "下午參加 Yankee Stadium Tour，19:05 已購票觀看 Mariners @ Yankees；全天不加排跨區景點。", href: "itinerary.html?date=2026-08-11#daily", label: "查看 8/11" },
+    { title: "8/6–8/8 APA 海報", text: "兩場海報都在 Hall D, Solutions Center, Posters；8/8 結束後再前往紐約。", href: "apa.html", label: "查看 APA" },
+    { title: "8/13 前往 JFK", text: "晚間以 Uber/Lyft 或預約機場接送為主，保留凌晨班機前的行李與交通緩衝。", href: "itinerary.html?date=2026-08-13#daily", label: "查看 8/13" }
+  ];
+  dashboard.innerHTML = dashboardItems.map((item) => `
+    <article class="dashboard-card">
+      <strong>${item.title}</strong>
+      <p>${item.text}</p>
+      <a class="source-link" href="${item.href}">${item.label}</a>
+    </article>
+  `).join("");
 }
