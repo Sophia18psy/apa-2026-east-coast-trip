@@ -33,8 +33,8 @@ README.md         使用、修改與部署說明
 
 目前預訂原則：
 
-- `8/2-8/4`：費城連住 2 晚，優先可取消房價、夜間入住與停車資訊清楚的房型；三人同行需確認 `2 beds` 或明確可住 3 人。
-- `8/4-8/8`：華盛頓 D.C. 以朋友家為主，不先付款訂飯店；APA 官方 onPeak 只作備援。
+- `8/2-8/4`：已確認入住 Live! Casino & Hotel Philadelphia；JFK 取車後直接前往，確認夜間入住與停車即可。
+- `8/4-8/8`：華盛頓 D.C. 以朋友家為主，不公開私人地址；8/8 海報後開車前往紐約 Midtown 還車。
 - `8/8-8/13`：紐約中價可取消住宿，優先 Upper West Side、Midtown West／Times Square 北側、Chelsea。
 
 訂完後只更新公開狀態，例如：
@@ -147,32 +147,13 @@ mapDirectionsUrl("Moynihan Train Hall at Penn Station", "Washington Union Statio
 
 朋友家、住宿地址、私人寄放點等敏感位置不要寫進公開網站；可先寫「朋友家／寄放點」，行程前再由同行人員各自在路線地圖儲存私人地址。
 
-## Amtrak 車站名稱與搜尋方式
+## 租車、住宿與跨城市移動
 
-紐約與華盛頓特區之間建議以 Amtrak 作為主方案，不建議租車作為主交通方式。原因是兩城停車與進出城塞車成本高，且 APA 發表日不適合自行開車長途移動。
+租車自 `8/2` 於 JFK 取車後連續使用：當晚前往 Live! Casino & Hotel Philadelphia，`8/4` 開往華盛頓 D.C.，並在 `8/8` 海報發表後開往 Manhattan Midtown、於 New York Marriott Marquis 附近門市還車。所有路程均需依 I-95 路況、休息、加油、過路費、門市營業時間與停車規則保留緩衝。
 
-在 Amtrak 搜尋欄可使用以下正式站名：
+費城住宿為 Live! Casino & Hotel Philadelphia（8/2–8/4）；紐約住宿為 New York Marriott Marquis（8/8–8/13）。網站可列飯店名稱與一般位置，但不放房號、訂位編號或付款資訊。
 
-```text
-New York, NY - Moynihan Train Hall at Penn Station (NYP)
-Washington, DC - Union Station (WAS)
-```
-
-本行程會用到：
-
-- 8/3：`NYP → WAS`
-- 8/8：`WAS → NYP`
-
-車站地址：
-
-- Moynihan Train Hall at Penn Station (NYP)：351 West 31st Street, New York, NY 10001
-- Washington Union Station (WAS)：50 Massachusetts Avenue NE, Washington, DC 20002-4214
-
-8/2 抵達 JFK 的第一晚，第一優先建議 TWA Hotel 或 JFK 周邊有接駁的連鎖飯店；若想讓隔天搭 Amtrak 更省事，可選 Moynihan/Penn Station 周邊，但第一晚進曼哈頓會較累。
-
-華盛頓 D.C. 目前暫定住朋友家，不另規劃 DC 飯店。網站只保留通勤與行李動線提醒，不寫朋友家地址、門牌、電話等私人資訊。出發前需確認朋友家至 Walter E. Washington Convention Center、Washington Union Station 與主要 Metro 站的實際時間。
-
-紐約 8/8-8/13 建議選 Midtown、Upper West Side、Chelsea 或交通安全便利區；返程前若市區交通不穩，可把 JFK 周邊短暫休息方案作備援。
+華盛頓 D.C. 住朋友家（8/4–8/8），不公開地址、門牌或電話。出發前需私下確認朋友家至 Walter E. Washington Convention Center、取行李點與 8/8 開車離開的實際動線。
 
 ## 如何新增、刪除或修改參訪地點
 

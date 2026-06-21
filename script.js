@@ -1280,6 +1280,72 @@ function applyReplannedTrip() {
 
 applyReplannedTrip();
 
+// Confirmed lodging and the continuous rental-car itinerary. This is applied before any page renders.
+function applyConfirmedTripDetails() {
+  const day = (id) => tripDays.find((item) => item.id === id);
+  const phillyHotel = "Live! Casino & Hotel Philadelphia（900 Packer Ave., Philadelphia, PA 19148）";
+  const nyHotel = "New York Marriott Marquis（Broadway, New York, NY 10036）";
+
+  Object.assign(day("2026-08-02"), {
+    lodging: `${phillyHotel}；8/2 入住、8/4 退房。`,
+    evening: "20:50 抵達 JFK，完成入境、領行李與取車後，自駕前往 Live! Casino & Hotel Philadelphia 入住；全程約 2–3 小時，僅辦理入住與休息。",
+    transport: "JFK 取租車後自駕至費城；租車自 8/2 持續使用至 8/8 紐約 Midtown 還車。確認跨州、保險、過路費與飯店停車規則。"
+  });
+  Object.assign(day("2026-08-03"), { lodging: phillyHotel });
+  Object.assign(day("2026-08-04"), { lodging: "華盛頓 D.C. 朋友家／寄放點（8/4–8/8；不公開地址）。" });
+  Object.assign(day("2026-08-08"), {
+    city: "華盛頓特區 → 紐約 Midtown",
+    lodging: `${nyHotel}；8/8 入住、8/13 退房。`,
+    afternoon: "12:00-13:00 海報發表；完成交流、拆海報、拍照與取行李後，開車前往紐約 Midtown。抵達後於 New York Marriott Marquis 附近的租車門市還車，再辦理入住。",
+    evening: "入住 New York Marriott Marquis，僅安排飯店附近簡單晚餐、補水與休息。",
+    transport: "會場 → 朋友家／寄放點取行李 → 自駕前往 Midtown → 飯店附近租車門市還車 → 短程步行或叫車入住。全程受 I-95、進城車流與還車時間影響。",
+    highlight: "第二場海報發表後，完成 D.C. 至紐約的自駕移動、Midtown 還車與飯店入住。",
+    notice: "海報結束後再取車與行李；不預約過早還車時段。進 Manhattan 前確認門市營業時間、加油規則與飯店最後入住安排。",
+    backup: "若海報收拾或路況延遲，直接取消晚間外出；以安全抵達、還車與入住為優先。"
+  });
+  ["2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13"].forEach((id) => { day(id).lodging = nyHotel; });
+  day("2026-08-13").afternoon = "17:00 前回 New York Marriott Marquis，完成行李整理與退房／寄放安排；晚餐於飯店或 Times Square 周邊提早完成。";
+
+  dailyRoutePlans["2026-08-08"] = [
+    { from: "Walter E. Washington Convention Center", to: "朋友家／寄放點", method: "租車或短程叫車", buffer: "海報後先完成交流、拆海報與取行李；不公開私人地址。", mapUrl: mapSearchUrl("Walter E. Washington Convention Center") },
+    { from: "華盛頓 D.C.", to: "Manhattan Midtown", method: "租車自駕", buffer: "約 4.5–6 小時，依 I-95、休息與進城車流調整。", mapUrl: mapDirectionsUrl("Washington DC", "Midtown Manhattan", "driving") },
+    { from: "Midtown 租車門市", to: "New York Marriott Marquis", method: "還車後步行或短程叫車", buffer: "以飯店附近門市為目標；以實際租車公司確認位置與營業時間。", mapUrl: mapSearchUrl("New York Marriott Marquis") }
+  ];
+
+  transportPlans.splice(0, transportPlans.length,
+    { route: "跨州租車：JFK → 費城 → D.C. → Midtown", method: "8/2 JFK 取車，8/8 Manhattan Midtown 還車", time: "JFK→費城約 2–3 小時；費城→D.C. 約 2.5–3.5 小時；D.C.→Midtown 約 4.5–6 小時。", pros: "直接銜接兩間已確認住宿、費城球場與 8/8 紐約入住。", cons: "需處理夜間取車、跨州、I-95 塞車、停車、過路費及 Manhattan 還車。", family: "8/2、8/4、8/8 都是低負擔移動日；不可疲勞駕駛。", luggage: "貴重物、證件與電子設備不可留在車內；還車前確認行李完整。", backup: "8/2 若疲勞先住 JFK 周邊；8/8 延遲時取消所有晚間行程，只完成還車與入住。" },
+    { route: "華盛頓特區市區移動", method: "Metro + 步行 + 短程叫車", time: "視朋友家位置約 10–60 分鐘", pros: "APA 期間有固定休息點，市區移動彈性高。", cons: "朋友家地址不公開；海報日需預留通勤緩衝。", family: "高溫、疲勞或晚間回程優先叫車。", luggage: "8/8 海報後取回寄放行李再開車離開。", backup: "Uber/Lyft。" },
+    { route: "紐約市區移動", method: "地鐵 + 步行 + 必要時叫車", time: "視距離 15–50 分鐘", pros: "覆蓋廣、效率高。", cons: "尖峰人潮多，部分車站無電梯。", family: "先設定集合點與備用聯絡方式。", luggage: "避免拖行李搭地鐵尖峰。", backup: "計程車或 App 叫車。" },
+    { route: "New York Marriott Marquis 至 JFK", method: "Uber/Lyft 或預訂機場接送", time: "20:30–21:00 出發，實際依路況調整", pros: "凌晨航班前較穩妥，行李友善。", cons: "費用較高且可能塞車。", family: "行李多時不建議多段轉乘。", luggage: "全部行李集中上車，文件隨身。", backup: "若市區交通不穩，提早出發。" }
+  );
+
+  lodgingPlans.splice(0, lodgingPlans.length,
+    { city: "費城", area: phillyHotel, priority: "已確認：8/2 入住、8/4 退房", reason: "銜接 JFK 自駕抵達、8/3 UPenn／Old City 與 Citizens Bank Park 球賽。", note: "公開網站只列飯店名稱與一般地址；不列房號、訂位編號或付款資料。" },
+    { city: "華盛頓特區", area: "朋友家／寄放點", priority: "8/4–8/8", reason: "APA 期間固定休息點。", note: "不公開地址、門牌、電話或其他私人資訊。" },
+    { city: "紐約", area: nyHotel, priority: "已確認：8/8 入住、8/13 退房", reason: "Midtown 位置可銜接還車、劇院區、地鐵與返程 JFK。", note: "公開網站只列飯店名稱與一般位置；不列房號、訂位編號或付款資料。" }
+  );
+  hotelBookingPlans.splice(0, hotelBookingPlans.length,
+    { status: "已確認", title: "費城住宿", dates: "2026/8/2 入住，2026/8/4 退房", target: phillyHotel, room: "依實際確認信；不公開房號或訂位編號。", rules: "保留確認信於私人裝置。", action: "確認晚間入住、停車與球賽散場返程。", url: "https://www.playlive.com/philadelphia/", urlLabel: "Live! Casino & Hotel Philadelphia" },
+    { status: "朋友家為主", title: "華盛頓 D.C. 會議期間", dates: "2026/8/4 入住，2026/8/8 離開", target: "朋友家／寄放點。", room: "不公開。", rules: "不得公開私人地址或聯絡資訊。", action: "確認會場、取行李與 8/8 開車離開動線。", url: "https://convention.apa.org/hotels", urlLabel: "APA 官方住宿備援" },
+    { status: "已確認", title: "紐約住宿", dates: "2026/8/8 入住，2026/8/13 退房", target: nyHotel, room: "依實際確認信；不公開房號或訂位編號。", rules: "保留確認信於私人裝置。", action: "確認 Midtown 還車後入住、行李寄放與 JFK 接送時間。", url: "https://www.marriott.com/en-us/hotels/nycmq-new-york-marriott-marquis/overview/", urlLabel: "New York Marriott Marquis" }
+  );
+  logisticsMapLinks.splice(0, logisticsMapLinks.length,
+    { label: "Live! Casino & Hotel Philadelphia", url: mapSearchUrl("Live Casino Hotel Philadelphia") },
+    { label: "Walter E. Washington Convention Center", url: mapSearchUrl("Walter E. Washington Convention Center") },
+    { label: "New York Marriott Marquis", url: mapSearchUrl("New York Marriott Marquis") },
+    { label: "Yankee Stadium", url: mapSearchUrl("Yankee Stadium") },
+    { label: "JFK Airport", url: mapSearchUrl("John F. Kennedy International Airport") }
+  );
+
+  photoGuideItems.forEach((item) => {
+    if (item.city === "Philadelphia") { item.date = item.name === "University of Pennsylvania" ? "8/3 上午" : "8/2–8/4"; }
+  });
+  checklistItems.splice(0, checklistItems.length, ...checklistItems.filter((item) => !item.includes("JFK 首晚") && !item.includes("Amtrak")));
+  checklistItems.unshift("確認 JFK 取車、跨州行駛、8/8 Midtown 還車門市與營業時間", "確認 Live! Casino & Hotel Philadelphia：8/2–8/4 入住與停車", "確認 New York Marriott Marquis：8/8–8/13 入住、行李寄放與 JFK 接送");
+}
+
+applyConfirmedTripDetails();
+
 document.addEventListener("DOMContentLoaded", () => {
   redirectLegacyPhotoHash();
   renderHomeDashboard();
@@ -2004,9 +2070,9 @@ function renderHomeDashboard() {
   const dashboard = document.getElementById("homeDashboard");
   if (!dashboard) return;
   const dashboardItems = [
-    { title: "8/2 抵達 JFK 後前往費城", text: "晚間取租車後自駕到費城住宿；若入境延誤或疲勞，優先使用 JFK 周邊住宿備案。", href: "itinerary.html?date=2026-08-02#daily", label: "查看 8/2" },
+    { title: "8/2 抵達 JFK 後前往費城", text: "晚間取租車後自駕入住 Live! Casino & Hotel Philadelphia；若入境延誤或疲勞，優先使用 JFK 周邊住宿備案。", href: "itinerary.html?date=2026-08-02#daily", label: "查看 8/2" },
     { title: "8/3 UPenn + Phillies", text: "上午賓州大學心理學系／校園自助參訪，下午獨立宮與自由鐘，18:40 已購票觀看 Nationals @ Phillies。", href: "itinerary.html?date=2026-08-03#daily", label: "查看 8/3" },
-    { title: "8/4 開車至 D.C.", text: "費城上午只安排一個低負擔室內景點；午餐後取車、行李與自駕前往華盛頓特區。", href: "itinerary.html?date=2026-08-04#daily", label: "查看 8/4" },
+    { title: "8/4–8/8 自駕主線", text: "8/4 開車至朋友家（D.C.）；8/8 海報後開至 Midtown 還車並入住 New York Marriott Marquis。", href: "itinerary.html?date=2026-08-08#daily", label: "查看 8/8" },
     { title: "8/11 Yankee Stadium", text: "下午參加 Yankee Stadium Tour，19:05 已購票觀看 Mariners @ Yankees；全天不加排跨區景點。", href: "itinerary.html?date=2026-08-11#daily", label: "查看 8/11" },
     { title: "8/6–8/8 APA 海報", text: "兩場海報都在 Hall D, Solutions Center, Posters；8/8 結束後再前往紐約。", href: "apa.html", label: "查看 APA" },
     { title: "8/13 前往 JFK", text: "晚間以 Uber/Lyft 或預約機場接送為主，保留凌晨班機前的行李與交通緩衝。", href: "itinerary.html?date=2026-08-13#daily", label: "查看 8/13" }
