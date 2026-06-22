@@ -20,15 +20,6 @@ const categories = [
   "風險控管"
 ];
 
-const summaryCards = [
-  { title: "APA 2026", text: "2026/8/6-8/8，Washington, DC + Virtual。8/5 安排會前工作坊，正式會期以研討會、交流與紀錄整理為主。" },
-  { title: "海報發表", text: "8/6 16:00-17:00 與 8/8 12:00-13:00 兩場海報發表，皆在 Hall D, Solutions Center, Posters。" },
-  { title: "東岸大學參訪", text: "主線安排 Columbia、NYU 校園與心理學教育環境觀察；UPenn 改列費城一日延伸備案，非已確認正式會議。" },
-  { title: "華盛頓特區參訪", text: "國家廣場、史密森尼博物館群、林肯紀念堂、白宮與國會山莊外觀，採低負擔與同行便利節奏。" },
-  { title: "交通與地圖", text: "以 Amtrak、Metro、步行與必要時短程叫車為主；每日保留主要交通動線與 路線地圖快速入口。" },
-  { title: "紐約參訪", text: "中央公園、AMNH、NYU、Columbia、911 紀念、自由女神、劇院區或運動文化場域，依體力切換版本。" }
-];
-
 function mapSearchUrl(query) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
@@ -1178,10 +1169,6 @@ let activeAttractionCity = "全部";
 
 // 2026/6 行程重排：費城改回主線；下列覆寫集中於此，避免日程、交通、景點與訂房資訊分散失真。
 function applyReplannedTrip() {
-  summaryCards[2] = { title: "東岸大學參訪", text: "8/3 安排賓州大學心理學系／校園自助參訪；紐約段續保留 Columbia、NYU 的學術環境觀察。未確認任何正式會議。" };
-  summaryCards[4] = { title: "交通與地圖", text: "費城段使用租車，8/4 自駕至 D.C.；D.C. 至紐約仍以 Amtrak、Metro、步行與必要時短程叫車為主。" };
-  summaryCards[5] = { title: "紐約參訪", text: "中央公園、AMNH、NYU、Columbia、911 紀念、自由女神、劇院區與已購票的 8/11 洋基球場導覽及球賽。" };
-
   const day = (id) => tripDays.find((item) => item.id === id);
   Object.assign(day("2026-08-02"), {
     city: "臺灣桃園 → JFK → 費城", lodging: "費城住宿（8/2 入住、8/4 退房；以可取消、停車便利與三人房型為優先）。",
@@ -1398,7 +1385,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
   redirectLegacyPhotoHash();
   renderHomeDashboard();
-  renderSummaryCards();
   renderFilters();
   renderTimeline();
   applyInitialDateFromQuery();
@@ -1461,17 +1447,6 @@ function renderHomeDashboard() {
       <strong>${item.title}</strong>
       <p>${item.text}</p>
       <a class="source-link" href="${item.href}">${item.label}</a>
-    </article>
-  `).join("");
-}
-
-function renderSummaryCards() {
-  const grid = document.getElementById("summaryGrid");
-  if (!grid) return;
-  grid.innerHTML = summaryCards.map((item) => `
-    <article class="summary-card">
-      <strong>${item.title}</strong>
-      <p>${item.text}</p>
     </article>
   `).join("");
 }
