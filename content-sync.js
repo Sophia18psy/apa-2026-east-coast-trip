@@ -7,7 +7,7 @@
     // until the new one-row-per-activity template has been imported.
     if(!Array.isArray(rows)||!rows.length||!rows.some(r=>r.title))return null;
     const map=new Map();
-    rows.forEach(r=>{if(!r.id||!r.date)return;let day=map.get(r.id);if(!day){day={id:r.id,date:r.date,weekday:r.weekday||'',city:r.city||'',lodging:r.lodging||'',summary:r.summary||'',events:[]};map.set(r.id,day);}if(r.title)day.events.push([r.time||'',r.title,r.detail||'',r.status||'建議安排',r.category||'',r.url||'',r.linkLabel||'官方資訊']);});
+    rows.forEach(r=>{if(!r.id||!r.date)return;let day=map.get(r.id);if(!day){day={id:r.id,date:r.date,weekday:r.weekday||'',city:r.city||'',lodging:r.lodging||'',summary:r.summary||'',events:[]};map.set(r.id,day);}if(r.title)day.events.push([r.time||'',r.title,r.detail||'',r.status||'建議安排',r.category||'',r.url||'',r.linkLabel||'官方資訊',r.placeIds||'']);});
     return [...map.values()];
   }
   function normalize(raw){
