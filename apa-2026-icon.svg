@@ -1,49 +1,56 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
-  <title id="title">溫暖獅子家庭</title>
-  <desc id="desc">兩隻大獅子與一隻小獅子的暖色家庭圖示</desc>
-  <rect width="512" height="512" rx="104" fill="#fff7e8"/>
-  <circle cx="105" cy="96" r="38" fill="#f9d29c" opacity=".48"/>
-  <circle cx="418" cy="412" r="56" fill="#f8d4bd" opacity=".42"/>
-  <!-- left adult mane and face -->
-  <g>
-    <circle cx="164" cy="230" r="122" fill="#e88936"/>
-    <circle cx="164" cy="230" r="98" fill="#f5a448"/>
-    <circle cx="164" cy="233" r="78" fill="#f8da93"/>
-    <circle cx="108" cy="190" r="27" fill="#f8da93"/>
-    <circle cx="220" cy="190" r="27" fill="#f8da93"/>
-    <circle cx="132" cy="223" r="8" fill="#392b22"/>
-    <circle cx="192" cy="223" r="8" fill="#392b22"/>
-    <ellipse cx="164" cy="250" rx="17" ry="12" fill="#392b22"/>
-    <path d="M164 262v14m0 0-13 11m13-11 13 11" fill="none" stroke="#392b22" stroke-linecap="round" stroke-width="7"/>
-    <ellipse cx="112" cy="254" rx="14" ry="8" fill="#f6b9b0"/>
-    <ellipse cx="216" cy="254" rx="14" ry="8" fill="#f6b9b0"/>
+  <title id="title">抱枕貼貼獅子家庭</title>
+  <desc id="desc">兩隻大獅子與一隻小獅子貼近的溫暖家庭圖示</desc>
+  <defs>
+    <filter id="soft-shadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#9c5728" flood-opacity=".16"/></filter>
+  </defs>
+  <rect width="512" height="512" rx="104" fill="#fff8ea"/>
+  <path d="M0 397c72-42 116-18 171 16 79 49 147 23 218-31 43-33 83-37 123-17v147H0Z" fill="#fbe6c7"/>
+  <circle cx="89" cy="94" r="40" fill="#f9d4ac" opacity=".55"/>
+  <circle cx="432" cy="112" r="27" fill="#f7c57e" opacity=".42"/>
+
+  <!-- back adult: peeking in warmly -->
+  <g filter="url(#soft-shadow)">
+    <circle cx="344" cy="205" r="126" fill="#e88735"/>
+    <circle cx="344" cy="205" r="104" fill="#f3a44c"/>
+    <ellipse cx="344" cy="214" rx="82" ry="77" fill="#ffe0a5"/>
+    <circle cx="285" cy="155" r="27" fill="#ffe0a5"/>
+    <circle cx="403" cy="155" r="27" fill="#ffe0a5"/>
+    <path d="M300 201q14-11 28 0m32 0q14-11 28 0" fill="none" stroke="#352820" stroke-linecap="round" stroke-width="9"/>
+    <ellipse cx="344" cy="234" rx="18" ry="13" fill="#352820"/>
+    <path d="M344 247v13m0 0q-13 13-25 1m25-1q13 13 25 1" fill="none" stroke="#352820" stroke-linecap="round" stroke-width="7"/>
+    <ellipse cx="294" cy="242" rx="15" ry="8" fill="#f8b8b2"/>
+    <ellipse cx="394" cy="242" rx="15" ry="8" fill="#f8b8b2"/>
   </g>
-  <!-- right adult mane and face -->
-  <g>
-    <circle cx="348" cy="230" r="122" fill="#e88936"/>
-    <circle cx="348" cy="230" r="98" fill="#f5a448"/>
-    <circle cx="348" cy="233" r="78" fill="#f8da93"/>
-    <circle cx="292" cy="190" r="27" fill="#f8da93"/>
-    <circle cx="404" cy="190" r="27" fill="#f8da93"/>
-    <circle cx="316" cy="223" r="8" fill="#392b22"/>
-    <circle cx="376" cy="223" r="8" fill="#392b22"/>
-    <ellipse cx="348" cy="250" rx="17" ry="12" fill="#392b22"/>
-    <path d="M348 262v14m0 0-13 11m13-11 13 11" fill="none" stroke="#392b22" stroke-linecap="round" stroke-width="7"/>
-    <ellipse cx="296" cy="254" rx="14" ry="8" fill="#f6b9b0"/>
-    <ellipse cx="400" cy="254" rx="14" ry="8" fill="#f6b9b0"/>
+
+  <!-- front adult: soft pillow-like face -->
+  <g filter="url(#soft-shadow)">
+    <circle cx="192" cy="316" r="144" fill="#db782f"/>
+    <circle cx="192" cy="316" r="119" fill="#efa04a"/>
+    <ellipse cx="192" cy="328" rx="96" ry="88" fill="#ffdfa2"/>
+    <circle cx="123" cy="267" r="31" fill="#ffdfa2"/>
+    <circle cx="261" cy="267" r="31" fill="#ffdfa2"/>
+    <path d="M143 310q15-13 31 0m37 0q15-13 31 0" fill="none" stroke="#352820" stroke-linecap="round" stroke-width="11"/>
+    <ellipse cx="192" cy="351" rx="21" ry="15" fill="#352820"/>
+    <path d="M192 367v15m0 0q-16 15-31 0m31 0q16 15 31 0" fill="none" stroke="#352820" stroke-linecap="round" stroke-width="8"/>
+    <ellipse cx="133" cy="356" rx="19" ry="10" fill="#f7b7b2"/>
+    <ellipse cx="251" cy="356" rx="19" ry="10" fill="#f7b7b2"/>
   </g>
-  <!-- child in front -->
-  <g>
-    <circle cx="256" cy="348" r="118" fill="#d9782d"/>
-    <circle cx="256" cy="348" r="95" fill="#f3a74d"/>
-    <circle cx="256" cy="350" r="73" fill="#ffe2a7"/>
-    <circle cx="205" cy="312" r="25" fill="#ffe2a7"/>
-    <circle cx="307" cy="312" r="25" fill="#ffe2a7"/>
-    <path d="M219 331h22m30 0h22" fill="none" stroke="#392b22" stroke-linecap="round" stroke-width="10"/>
-    <ellipse cx="256" cy="361" rx="18" ry="13" fill="#392b22"/>
-    <path d="M256 374v15m0 0-14 11m14-11 14 11" fill="none" stroke="#392b22" stroke-linecap="round" stroke-width="7"/>
-    <ellipse cx="207" cy="365" rx="14" ry="8" fill="#f6b9b0"/>
-    <ellipse cx="305" cy="365" rx="14" ry="8" fill="#f6b9b0"/>
-    <path d="M256 276c-18 0-32 12-38 24h76c-6-12-20-24-38-24Z" fill="#f7c778"/>
+
+  <!-- child: leaning against the adult -->
+  <g filter="url(#soft-shadow)">
+    <circle cx="344" cy="369" r="104" fill="#e88735"/>
+    <circle cx="344" cy="369" r="84" fill="#f3a44c"/>
+    <ellipse cx="344" cy="378" rx="64" ry="59" fill="#ffe4ad"/>
+    <circle cx="299" cy="337" r="22" fill="#ffe4ad"/>
+    <circle cx="389" cy="337" r="22" fill="#ffe4ad"/>
+    <path d="M313 363h17m31 0h17" fill="none" stroke="#352820" stroke-linecap="round" stroke-width="9"/>
+    <ellipse cx="344" cy="393" rx="16" ry="12" fill="#352820"/>
+    <path d="M344 405v11m0 0q-12 12-23 0m23 0q12 12 23 0" fill="none" stroke="#352820" stroke-linecap="round" stroke-width="7"/>
+    <ellipse cx="302" cy="396" rx="13" ry="7" fill="#f7b7b2"/>
+    <ellipse cx="386" cy="396" rx="13" ry="7" fill="#f7b7b2"/>
   </g>
+
+  <!-- tiny family heart -->
+  <path d="M267 283c-9-13-28-4-20 10l20 21 20-21c8-14-11-23-20-10Z" fill="#ef8e80" stroke="#fff8ea" stroke-width="5" stroke-linejoin="round"/>
 </svg>
