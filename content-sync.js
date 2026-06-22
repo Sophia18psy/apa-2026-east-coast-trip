@@ -1,52 +1,27 @@
-(function () {
-  function mergeArray(target, values, key) {
-    if (!Array.isArray(target) || !Array.isArray(values) || !values.length) return;
-    const existing = new Map(target.map((item) => [item[key], item]));
-    values.forEach((item) => {
-      const current = existing.get(item[key]);
-      if (current) Object.assign(current, item);
-      else target.push(item);
-    });
+/* Fetches public, allowlisted rows from Google Sheets and keeps the last good copy for offline PWA use. */
+(function(){
+  const cacheKey='apa2026-public-trip-v2';
+  const config=window.TRIP_CONFIG||{};
+  function rowsToDays(rows){
+    // The former spreadsheet used morning/afternoon/evening columns. Ignore it
+    // until the new one-row-per-activity template has been imported.
+    if(!Array.isArray(rows)||!rows.length||!rows.some(r=>r.title))return null;
+    const map=new Map();
+    rows.forEach(r=>{if(!r.id||!r.date)return;let day=map.get(r.id);if(!day){day={id:r.id,date:r.date,weekday:r.weekday||'',city:r.city||'',lodging:r.lodging||'',summary:r.summary||'',events:[]};map.set(r.id,day);}if(r.title)day.events.push([r.time||'',r.title,r.detail||'',r.status||'建議安排',r.category||'',r.url||'',r.linkLabel||'官方資訊']);});
+    return [...map.values()];
   }
-
-  function applyPayload(payload, targets) {
-    const data = payload && payload.data ? payload.data : payload;
-    if (!data || typeof data !== "object") return false;
-    mergeArray(targets.tripDays, data.tripDays, "id");
-    mergeArray(targets.attractions, data.attractions, "name");
-    mergeArray(targets.universities, data.universities, "name");
-    if (Array.isArray(data.transportPlans) && data.transportPlans.length) targets.transportPlans.splice(0, targets.transportPlans.length, ...data.transportPlans);
-    if (Array.isArray(data.lodgingPlans) && data.lodgingPlans.length) targets.lodgingPlans.splice(0, targets.lodgingPlans.length, ...data.lodgingPlans);
-    if (Array.isArray(data.hotelBookingPlans) && data.hotelBookingPlans.length) targets.hotelBookingPlans.splice(0, targets.hotelBookingPlans.length, ...data.hotelBookingPlans);
-    if (Array.isArray(data.checklistItems) && data.checklistItems.length) targets.checklistItems.splice(0, targets.checklistItems.length, ...data.checklistItems);
-    if (data.dailyRoutePlans && typeof data.dailyRoutePlans === "object") {
-      Object.keys(targets.dailyRoutePlans).forEach((key) => delete targets.dailyRoutePlans[key]);
-      Object.assign(targets.dailyRoutePlans, data.dailyRoutePlans);
-    }
-    return true;
+  function normalize(raw){
+    const r=raw||{}; const out={};
+    const days=rowsToDays(r.days||r.tripDays); if(days)out.days=days;
+    if(Array.isArray(r.bookings)&&r.bookings.length)out.bookings=r.bookings;
+    if(Array.isArray(r.attractions)&&r.attractions.length)out.attractions=r.attractions;
+    if(Array.isArray(r.lodging)||Array.isArray(r.transport))out.logistics={lodging:(r.lodging||[]).map(x=>[x.period||'',x.name||'',x.detail||'']),transport:(r.transport||[]).map(x=>[x.date||'',x.title||'',x.detail||''])};
+    if(Array.isArray(r.checklist)&&r.checklist.length)out.checklist=r.checklist.map(x=>[x.id||x.title,x.title||'',x.detail||'']);
+    if(Array.isArray(r.risks)&&r.risks.length)out.risks=r.risks.map(x=>x.text||x.value||'').filter(Boolean);
+    if(Array.isArray(r.apaCommitments)||Array.isArray(r.apaFocus))out.apa={commitments:(r.apaCommitments||[]).map(x=>[x.time||'',x.title||'',x.detail||'']),focus:(r.apaFocus||[]).map(x=>x.text||x.value||'').filter(Boolean)};
+    return out;
   }
-
-  window.TripContentSync = {
-    async hydrate(targets) {
-      const config = window.TRIP_CONTENT_CONFIG || {};
-      const cached = localStorage.getItem(config.cacheKey || "apa2026PublicTripContent");
-      let cache = null;
-      try { cache = cached ? JSON.parse(cached) : null; } catch (_) { cache = null; }
-      if (!config.apiUrl) {
-        if (cache) applyPayload(cache.payload, targets);
-        return { source: cache ? "cache" : "built-in" };
-      }
-      try {
-        const response = await fetch(config.apiUrl, { cache: "no-store" });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const payload = await response.json();
-        if (!applyPayload(payload, targets)) throw new Error("Invalid public itinerary payload");
-        localStorage.setItem(config.cacheKey || "apa2026PublicTripContent", JSON.stringify({ savedAt: Date.now(), payload }));
-        return { source: "google-sheet" };
-      } catch (_) {
-        if (cache) applyPayload(cache.payload, targets);
-        return { source: cache ? "cache" : "built-in" };
-      }
-    }
-  };
-})();
+  function set(raw){const data=normalize(raw);if(Object.keys(data).length){window.TripContent=data;localStorage.setItem(cacheKey,JSON.stringify(data));}}
+  try{const cached=JSON.parse(localStorage.getItem(cacheKey)||'null');if(cached)window.TripContent=cached;}catch(e){}
+  window.TripContentReady=(!config.apiUrl?Promise.resolve():fetch(config.apiUrl,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json();}).then(payload=>set(payload.data||payload)).catch(()=>{}));
+}());
