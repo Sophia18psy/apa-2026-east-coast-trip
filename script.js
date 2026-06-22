@@ -1346,7 +1346,56 @@ function applyConfirmedTripDetails() {
 
 applyConfirmedTripDetails();
 
-document.addEventListener("DOMContentLoaded", () => {
+function applyLatestNewYorkItinerary() {
+  const day = (id) => tripDays.find((item) => item.id === id);
+  Object.assign(day("2026-08-09"), {
+    city: "紐約・Lower Manhattan", morning: "08:40 抵達 Battery Park；09:00 已訂 Statue of Liberty Pedestal Reserve（3 人）＋ Ellis Island。",
+    afternoon: "14:15 Battery Park 午餐；15:00 Wall Street + Charging Bull；16:00 9/11 Memorial & Museum（尚未訂，建議 timed entry）。",
+    evening: "18:15 Brooklyn Bridge 步行；19:00 DUMBO；20:00 Juliana's Pizza。", transport: "地鐵 + 渡輪 + 步行；自由女神票券時間是安檢排隊時間。",
+    highlight: "已訂自由女神 Pedestal Reserve；渡輪延遲時優先保留 9/11，取消 Wall Street 或縮短 DUMBO。", meal: "Battery Park 午餐、DUMBO 晚餐。",
+    notice: "僅使用 Statue City Cruises；確認號碼與票券條碼不放公開網站。", backup: "若渡輪延誤，改 9/11 Memorial 廣場外觀與橋中段拍照。"
+  });
+  Object.assign(day("2026-08-10"), {
+    city: "紐約・Chelsea / NYU", morning: "11:00 Chelsea Market（含午餐）＋ High Line 短程步行。",
+    afternoon: "13:30 NYU 自助參訪（Meyer Hall 周邊）；14:30 到集合點；15:00–16:30 已訂 NYU Campus Tour。",
+    evening: "Greenwich Village 散步；20:00 百老匯音樂劇為可選。", highlight: "NYU 導覽已訂，Cafe Reggio 改為導覽後視時間休息。",
+    notice: "NYU 導覽約 90 分鐘；以確認信集合規則為準。"
+  });
+  Object.assign(day("2026-08-11"), {
+    city: "紐約・Midtown / Yankee Stadium", morning: "10:00 Grand Central Terminal、Fifth Avenue、Rockefeller Center。",
+    afternoon: "Midtown 午餐後 13:15 前往球場；14:00–17:00 已訂 Yankee Stadium Tour。",
+    evening: "17:30 依官方規則領 Rumi 公仔；19:05 Mariners @ Yankees。", highlight: "導覽與球賽為全天硬限制，不排其他跨區景點。",
+    notice: "以確認信入口為準，至少提早 15 分鐘到導覽集合點；球賽規則以 Yankees／MLB 公告為準。"
+  });
+  Object.assign(day("2026-08-12"), {
+    city: "紐約・AMNH / Columbia", morning: "09:15 Bethesda Terrace；10:00 已訂 AMNH，重點參觀至 12:30。",
+    afternoon: "Levain Bakery 簡餐；14:00 Columbia 自助參訪；15:00–16:00 已訂 Columbia Campus Tour。",
+    evening: "16:00 Schermerhorn Hall 心理系周邊；16:30 Tom's Restaurant 咖啡。", highlight: "AMNH 與 Columbia Tour 已訂；中央公園只保留 Bethesda Terrace。",
+    notice: "12:30 前離開 AMNH，保留前往 Columbia 與集合緩衝。"
+  });
+  Object.assign(day("2026-08-13"), {
+    city: "紐約 → JFK", morning: "09:30 完成退房與行李寄放；10:30 Intrepid（尚未訂，建議預約）。",
+    afternoon: "Times Square 紀念品採買；16:00 前回飯店確認行李。", evening: "18:30 晚餐；20:30 Uber／預約接送前往 JFK。",
+    highlight: "返程日先處理行李；Intrepid 未訂到時改飯店附近休息或採買。"
+  });
+  const setAttraction = (name, values) => { const item = attractions.find((entry) => entry.name === name); if (item) Object.assign(item, values); };
+  setAttraction("自由女神", { date: "8/9 09:00 已訂 Pedestal Reserve", ticketUrl: "https://www.statuecitycruises.com/", ticketNote: "09:00 為安檢排隊時間；Pedestal 需二次安檢。確認號碼與票券條碼不公開。" });
+  setAttraction("911 紀念博物館", { date: "8/9 16:00 建議預約", ticketNote: "尚未訂；建議選 timed entry。渡輪延遲時改紀念廣場外觀。" });
+  setAttraction("美國自然史博物館 AMNH", { date: "8/12 10:00 已訂", ticketNote: "已訂；安排 10:00–12:30 重點參觀，預留 Columbia 交通時間。" });
+  setAttraction("Columbia University", { date: "8/12 15:00–16:00 已訂 Campus Tour", ticketNote: "14:00–14:50 先自助參訪；導覽集合規則以確認信為準。" });
+  setAttraction("NYU 與 Washington Square Park", { date: "8/10 15:00–16:30 已訂 Campus Tour", ticketNote: "已訂；導覽約 90 分鐘，建議 14:30 前到集合點。" });
+  setAttraction("無畏號航空母艦博物館", { date: "8/13 10:30 建議預約", ticketNote: "尚未訂；未訂到時改 Times Square、飯店附近休息或行李整理。" });
+}
+
+applyLatestNewYorkItinerary();
+
+document.addEventListener("DOMContentLoaded", async () => {
+  if (window.TripContentSync) {
+    await window.TripContentSync.hydrate({ tripDays, attractions, universities, transportPlans, lodgingPlans, hotelBookingPlans, checklistItems, dailyRoutePlans });
+  }
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  }
   redirectLegacyPhotoHash();
   renderHomeDashboard();
   renderSummaryCards();

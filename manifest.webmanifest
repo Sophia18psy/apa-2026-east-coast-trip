@@ -1,0 +1,9 @@
+{
+  "name": "APA 2026 東岸行程",
+  "short_name": "APA 2026 行程",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7f9fb",
+  "theme_color": "#0f2742",
+  "icons": [{ "src": "images/apa-2026-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
