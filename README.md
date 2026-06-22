@@ -155,6 +155,10 @@ mapDirectionsUrl("Moynihan Train Hall at Penn Station", "Washington Union Statio
 
 華盛頓 D.C. 住朋友家（8/4–8/8），不公開地址、門牌或電話。出發前需私下確認朋友家至 Walter E. Washington Convention Center、取行李點與 8/8 開車離開的實際動線。
 
+## 自行更新行程與 PWA
+
+網站已支援 PWA 安裝與 Google Sheet 公開行程同步。請依 [Google Sheet 設定說明](GOOGLE_SHEET_SETUP.md) 建立私有試算表、部署唯讀 Apps Script API，並把 `/exec` 網址填入 `trip-config.js`；之後只需編輯試算表的公開資料列。未設定 API 時，網站會使用內建的最新行程資料。
+
 ## 如何新增、刪除或修改參訪地點
 
 參訪地點資料在 `script.js` 的 `attractions` 陣列。
