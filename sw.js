@@ -1,4 +1,4 @@
-const CACHE = 'apa2026-warm-v3';
+const CACHE = 'apa2026-warm-v4';
 const ASSETS = ['./','./index.html','./itinerary.html','./apa.html','./attractions.html','./logistics.html','./prep.html','./style.css','./script.js','./content-sync.js','./trip-config.js','./manifest.webmanifest','./images/apa-2026-icon.svg'];
 self.addEventListener('install', event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting())));
 self.addEventListener('activate', event => event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())));
